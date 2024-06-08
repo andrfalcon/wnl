@@ -1,10 +1,11 @@
 'use client'
 import axios from 'axios';
-import { NEXT_CACHE_TAGS_HEADER } from 'next/dist/lib/constants';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 
 const SearchForm = (props) => {
-
+    const router = useRouter();
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleInputChange = (e) => {
@@ -14,6 +15,7 @@ const SearchForm = (props) => {
     const handleSearch = async () => {
         const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${encodeURIComponent(searchTerm)}&relevanceLanguage=${props.languageCode}&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`);
         console.log(response);
+        router.push('/results');
     }
 
     return (

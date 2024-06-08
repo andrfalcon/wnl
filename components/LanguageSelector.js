@@ -45,8 +45,8 @@ const LanguageSelector = (props) => {
                     key={index} 
                     className={`btn btn-neutral m-2 ${selectedLanguage === lang.language ? 'bg-accent text-gray-900' : 'hover:bg-accent hover:text-gray-900'}`}
                     onClick={() => {
-                        setSelectedLanguage(lang.language)
-                        props.setLanguageCode(lang.code)
+                        setSelectedLanguage(lang.language);
+                        props.setLanguageCode(lang.code);
                     }}
                 >
                     {lang.language} {lang.emoji}
