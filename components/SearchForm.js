@@ -15,7 +15,6 @@ const SearchForm = (props) => {
 
     const handleSearch = async () => {
         const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${encodeURIComponent(searchTerm)}&relevanceLanguage=${props.languageCode}&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`);
-        // console.log(response);
         updateSearchResults(response.data.items);
         router.push('/results');
     }
