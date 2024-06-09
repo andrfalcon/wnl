@@ -29,7 +29,8 @@
     "react-hot-toast": "^2.4.1",
     "react-syntax-highlighter": "^15.5.0",
     "react-tooltip": "^5.26.3",
-    "stripe": "^13.11.0"
+    "stripe": "^13.11.0",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
