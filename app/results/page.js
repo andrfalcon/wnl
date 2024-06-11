@@ -4,16 +4,35 @@ import { useStore } from '@/store';
 import he from 'he';
 import Header from '@/components/Header';
 import VideoCard from "@/components/VideoCard";
+import { useRouter } from 'next/navigation';
 
 const Results = () => {
+  const router = useRouter();
   const searchResults = useStore((state) => state.searchResults)
-  // useEffect(() => {
-  //   console.log(searchResults)
-  // }, [])
+  useEffect(() => {
+    console.log(searchResults)
+  }, [])
   return (
     <>
       <Header />
-      <VideoCard />
+      {searchResults.map((result, index) => (
+          <button
+            key={index}
+            onClick={() => router.push('/study')}
+            className="opacity-75 hover:opacity-100 transition-opacity duration-200"
+          >
+              <VideoCard 
+                title={result.snippet.title}
+                description={result.snippet.description}
+                date={result.snippet.publishedAt}
+                channel={result.snippet.channelTitle}
+                thumbnail={result.snippet.thumbnails.high.url}
+                link={`https://www.youtube.com/watch?v=${result.id.videoId}`}
+                key={index}
+              />
+          </button>
+      ))
+      }
     </>
   )
 }
