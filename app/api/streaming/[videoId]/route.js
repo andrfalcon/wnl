@@ -8,7 +8,10 @@ export async function GET(request, { params }) {
 
     const range = request.headers.get('range');
     const videoInfo = await ytdl.getInfo(url);
-    const format = ytdl.chooseFormat(videoInfo.formats, { quality: 'highest' });
+    const format = ytdl.chooseFormat(videoInfo.formats, { 
+      quality: 'highest',
+      filter: (format) => format.container === 'mp4' && format.hasAudio && format.hasVideo,
+    });
 
     if (range) {
       const parts = range.replace(/bytes=/, '').split('-');
