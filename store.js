@@ -2,5 +2,7 @@ import { create } from 'zustand';
 
 export const useStore = create((set) => ({
     searchResults: {},
-    updateSearchResults: (data) => set(() => ({ searchResults: data }))
+    videoSelected: "",
+    updateSearchResults: (data) => set(() => ({ searchResults: data })),
+    updateVideoSelected: (data) => set(() => ({ videoSelected: data }))
 }))

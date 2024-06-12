@@ -1,7 +1,5 @@
 'use client'
-import { useEffect } from "react";
 import { useStore } from '@/store';
-import he from 'he';
 import Header from '@/components/Header';
 import VideoCard from "@/components/VideoCard";
 import { useRouter } from 'next/navigation';
@@ -9,16 +7,19 @@ import { useRouter } from 'next/navigation';
 const Results = () => {
   const router = useRouter();
   const searchResults = useStore((state) => state.searchResults)
-  useEffect(() => {
-    console.log(searchResults)
-  }, [])
+  const updateVideoSelected = useStore((state) => state.updateVideoSelected);
+
+  const handleWatch = (videoId) => {
+    updateVideoSelected(videoId);
+    router.push('/study');
+  }
   return (
     <>
       <Header />
       {searchResults.map((result, index) => (
           <button
             key={index}
-            onClick={() => router.push('/study')}
+            onClick={() => handleWatch(result.id.videoId)}
             className="opacity-75 hover:opacity-100 transition-opacity duration-200"
           >
               <VideoCard 

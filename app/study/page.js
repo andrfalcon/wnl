@@ -1,7 +1,13 @@
+"use client";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useStore } from '@/store';
+
 const Study = () => {
-    return (
-        <h1>This is the study page.</h1>
-    )
-}
+  const videoSelected = useStore((state) => state.videoSelected)
+  return (
+    <video controls width="600" src={`/api/translation/${videoSelected}`} />
+  );
+};
 
 export default Study;
