@@ -22,17 +22,20 @@ export async function GET(request, { params }) {
         timestamp_granularities: ["segment"],
     })).segments
 
-    console.log(sourceTranscription);
+    // console.log(sourceTranscription);
 
     const translator = new deepl.Translator(process.env.NEXT_PUBLIC_DEEPL_KEY);
 
-    const targetTranscription = [];
+    const transcriptions = {};
 
     for (let i=0; i<sourceTranscription.length; i++) {
-        targetTranscription.push((await translator.translateText(sourceTranscription[i].text, 'fr', 'en-US')).text);
+        transcriptions[(sourceTranscription[i].start).toFixed(2)] = [
+            sourceTranscription[i].text, 
+            (await translator.translateText(sourceTranscription[i].text, 'en', 'fr')).text
+        ]
     }
 
-    console.log(targetTranscription);
+    // console.log(transcriptions);
 
-    return NextResponse.json({ message: "hello, world" })
+    return NextResponse.json({ transcription: transcriptions })
 }
