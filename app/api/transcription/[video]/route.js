@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import streamToBlob from "stream-to-blob";
 import ytdl from "ytdl-core";
-import util from "util";
+import * as deepl from 'deepl-node';
 
 export async function GET(request, { params }) {
     const openai = new OpenAI({
@@ -23,6 +23,16 @@ export async function GET(request, { params }) {
     })).segments
 
     console.log(sourceTranscription);
+
+    const translator = new deepl.Translator(process.env.NEXT_PUBLIC_DEEPL_KEY);
+
+    const targetTranscription = [];
+
+    for (let i=0; i<sourceTranscription.length; i++) {
+        targetTranscription.push((await translator.translateText(sourceTranscription[i].text, 'fr', 'en-US')).text);
+    }
+
+    console.log(targetTranscription);
 
     return NextResponse.json({ message: "hello, world" })
 }
